@@ -4,6 +4,7 @@ import argparse
 
 import numpy as np
 import cupy as cp
+import jax.numpy as jnp
 import scipy
 
 
@@ -14,6 +15,8 @@ def main(backend: str = "numpy", size: int = 100):
         arr = arr
     elif backend == "cupy":
         arr = cp.array(arr)
+    elif backend == "jax":
+        arr = jnp.array(arr)
     start = time.perf_counter()
     out = scipy.stats.rankdata(arr)
     # crude check for correctness (which requires

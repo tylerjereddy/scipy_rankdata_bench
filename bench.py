@@ -1,10 +1,17 @@
+import os
 import time
 import argparse
 
 
 import numpy as np
-import cupy as cp
-import jax.numpy as jnp
+try:
+    import cupy as cp
+except ImportError:
+    pass
+try:
+    import jax.numpy as jnp
+except ImportError:
+    pass
 import torch
 import scipy
 import array_api_compat
@@ -23,6 +30,9 @@ def main(backend: str = "numpy", size: int = 100):
         if torch.cuda.is_available():
             torch.set_default_device("cuda")
             device = torch.device("cuda")
+        elif torch.backends.mps.is_available() and not os.getenv('CPU_ONLY'):
+            torch.set_default_device("mps")
+            device = torch.device("mps")
         else:
             device = torch.device("cpu")
         arr = torch.from_numpy(arr).to(device)

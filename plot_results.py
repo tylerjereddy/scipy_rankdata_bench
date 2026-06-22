@@ -78,11 +78,31 @@ torch_4090 = [0.32906035985797644,
               0.3285703118890524,
              ]
 
+# torch 2.12.1 results on ARM Mac (M3 MAX CPU)
+# (incantation: `CPU_ONLY=1 python bench.py --size 100000000 --backend torch`)
+# 4 trials
+torch_m3_max_cpu = [5.127518416000385,
+                    5.205726166999739,
+                    5.184289208000337,
+                    5.13092908300132,
+                   ]
+
+# torch 2.12.1 results on ARM Mac (M3 MAX GPU)
+# (incantation: `python bench.py --size 100000000 --backend torch`)
+# 4 trials
+torch_m3_max_gpu = [13.36404520799988,
+                    13.451699332999851,
+                    13.381041290998837,
+                    13.46170579200043,
+                   ]
+
 
 df = pd.DataFrame({"NumPy i9": numpy_i9,
                    "CuPy 1080": cupy_1080,
                    "CuPy 4090": cupy_4090,
                    "torch i9": torch_i9,
+                   "torch M3 Max CPU": torch_m3_max_cpu,
+                   "torch M3 Max GPU": torch_m3_max_gpu,
                    "torch 4090": torch_4090,
                    "JAX i9": jax_i9,
                    "JAX 1080": jax_1080,

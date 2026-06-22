@@ -59,13 +59,36 @@ jax_4090 = [0.9070844165980816,
             0.9091755729168653,
            ]
 
+# torch 2.12.1 results on gp160 (i9-13900K)
+# (incantation: `CUDA_VISIBLE_DEVICES="" python bench.py --size 100000000 --backend torch`)
+# 4 trials
+torch_i9 = [3.7354863798245788,
+            3.7818091763183475,
+            3.75791558809578,
+            3.7367754969745874,
+           ]
+
+# NOTE: torch 2.10.0 deps not compatible with older 1080
+# torch 2.10.0 results on gp160 (4090)
+# (incantation: `CUDA_VISIBLE_DEVICES=0 python bench.py --size 100000000 --backend torch`)
+# 4 trials
+torch_4090 = [0.32906035985797644,
+              0.3287751730531454,
+              0.32863392401486635,
+              0.3285703118890524,
+             ]
+
 
 df = pd.DataFrame({"NumPy i9": numpy_i9,
                    "CuPy 1080": cupy_1080,
                    "CuPy 4090": cupy_4090,
+                   "torch i9": torch_i9,
+                   "torch 4090": torch_4090,
                    "JAX i9": jax_i9,
                    "JAX 1080": jax_1080,
                    "JAX 4090": jax_4090})
 sns.barplot(df, ax=ax)
 ax.set_ylabel("Elapsed Time (s)")
+ax.tick_params(axis='x', labelrotation=90)
+fig.tight_layout()
 fig.savefig("bench_rankdata.png", dpi=300)

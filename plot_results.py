@@ -23,6 +23,14 @@ cupy_4090 = [0.3554808758199215,
              0.3581071700900793,
              0.35619060043245554,
             ]
+# CuPy 14.1.1 results on chicoma (A100)
+# (incantation: `CUDA_VISIBLE_DEVICES=0 python bench.py --size 100000000 --backend cupy`)
+# 4 trials
+cupy_a100 = [0.6823827699990943,
+             0.7852864799788222,
+             0.6816078000701964,
+             0.6527298010187224,
+            ]
 # CuPy 14.1.1 results on gp160 (1080 Ti)
 # (incantation: `CUDA_VISIBLE_DEVICES=1 python bench.py --size 100000000 --backend cupy`)
 # 4 trials
@@ -58,6 +66,14 @@ jax_4090 = [0.9070844165980816,
             0.8999174265190959,
             0.9091755729168653,
            ]
+# JAX 0.10.2 results on chicoma (A100)
+# (incantation: `CUDA_VISIBLE_DEVICES=0 python bench.py --size 100000000 --backend jax`)
+# 4 trials
+jax_a100 = [1.8963053349871188,
+            1.8582751370267943,
+            1.9545096419751644,
+            1.7758357039419934,
+           ]
 
 # torch 2.12.1 results on gp160 (i9-13900K)
 # (incantation: `CUDA_VISIBLE_DEVICES="" python bench.py --size 100000000 --backend torch`)
@@ -76,6 +92,14 @@ torch_4090 = [0.32906035985797644,
               0.3287751730531454,
               0.32863392401486635,
               0.3285703118890524,
+             ]
+# torch 2.10.0 results on chicoma (A100)
+# (incantation: `CUDA_VISIBLE_DEVICES=0 python bench.py --size 100000000 --backend torch`)
+# 4 trials
+torch_a100 = [0.6596070200903341,
+              0.7665192249696702,
+              0.6573314070701599,
+              0.7447423950070515,
              ]
 
 # torch 2.12.1 results on ARM Mac (M3 MAX CPU)
@@ -100,13 +124,16 @@ torch_m3_max_gpu = [13.36404520799988,
 df = pd.DataFrame({"NumPy i9": numpy_i9,
                    "CuPy 1080": cupy_1080,
                    "CuPy 4090": cupy_4090,
+                   "CuPy A100": cupy_a100,
                    "torch i9": torch_i9,
                    "torch M3 Max CPU": torch_m3_max_cpu,
                    "torch M3 Max GPU": torch_m3_max_gpu,
                    "torch 4090": torch_4090,
+                   "torch A100": torch_a100,
                    "JAX i9": jax_i9,
                    "JAX 1080": jax_1080,
-                   "JAX 4090": jax_4090})
+                   "JAX 4090": jax_4090,
+                   "JAX A100": jax_a100})
 sns.barplot(df, ax=ax)
 ax.set_ylabel("Elapsed Time (s)")
 ax.tick_params(axis='x', labelrotation=90)

@@ -125,6 +125,14 @@ torch_h100 = [0.5862254210005631,
               0.575681786000132,
               0.5579765259990381,
              ]
+# torch 2.14.0.dev20260622+rocm7.2 results on rzadams (MI300A)
+# (incantation: `HIP_VISIBLE_DEVICES=0 python bench.py --size 100000000 --backend torch`)
+# 4 trials
+torch_mi300a = [2.484767579007894,
+                2.4801498299930245,
+                2.4980579330585897,
+                2.5620238608680665,
+             ]
 
 # torch 2.12.1 results on ARM Mac (M3 MAX CPU)
 # (incantation: `CPU_ONLY=1 python bench.py --size 100000000 --backend torch`)
@@ -156,6 +164,7 @@ df = pd.DataFrame({"NumPy i9": numpy_i9,
                    "torch 4090": torch_4090,
                    "torch A100": torch_a100,
                    "torch H100": torch_h100,
+                   "torch MI300A": torch_mi300a,
                    "JAX i9": jax_i9,
                    "JAX 1080": jax_1080,
                    "JAX 4090": jax_4090,

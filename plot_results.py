@@ -171,6 +171,11 @@ df = pd.DataFrame({"NumPy i9": numpy_i9,
                    "JAX A100": jax_a100,
                    "JAX H100": jax_h100})
 sns.barplot(df, ax=ax)
+ax.axhline(y=df["NumPy i9"].mean(),
+           xmin=0,
+           xmax=1,
+           color="pink",
+           ls="--")
 ax.set_ylabel("Elapsed Time (s)")
 ax.tick_params(axis='x', labelrotation=90)
 fig.tight_layout()
